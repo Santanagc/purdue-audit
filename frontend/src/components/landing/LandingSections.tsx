@@ -42,7 +42,7 @@ export function Wordmark({ inverse = false }: { inverse?: boolean }) {
       >
         OT
       </span>
-      <span className={`font-display text-[19px] font-semibold ${inverse ? "text-inverse-fg" : "text-fg"}`}>OT-Shield</span>
+      <span className={`font-display text-[19px] font-semibold ${inverse ? "text-inverse-fg" : "text-fg"}`}>Purdue Audit</span>
     </span>
   );
 }
@@ -69,7 +69,7 @@ export function LandingNav() {
             </a>
           ))}
         </nav>
-        <Link href="/" aria-label="OT-Shield AI — início" className="justify-self-start md:justify-self-center">
+        <Link href="/" aria-label="Purdue Audit — início" className="justify-self-start md:justify-self-center">
           <Wordmark />
         </Link>
         <div className="flex items-center justify-end gap-2">

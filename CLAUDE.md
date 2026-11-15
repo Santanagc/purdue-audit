@@ -1,7 +1,7 @@
-# CLAUDE.md - Diretrizes do Projeto OT-Shield AI
+# CLAUDE.md - Diretrizes do Projeto Purdue Audit
 
 ## Visão Geral do Projeto
-O **OT-Shield AI (edição portfólio)** é uma ferramenta de análise passiva de tráfego de redes industriais (OT/ICS) e auditoria de conformidade baseada na norma ISA/IEC 62443 e no Modelo Purdue.
+O **Purdue Audit (edição portfólio)** é uma ferramenta de análise passiva de tráfego de redes industriais (OT/ICS) e auditoria de conformidade baseada na norma ISA/IEC 62443 e no Modelo Purdue.
 O usuário faz upload de um arquivo `.pcap` ou `.pcapng`, o backend extrai metadados de protocolos industriais de forma determinística via Python (`scapy`), deleta o arquivo original imediatamente (arquitetura Stateless/Zero-Trust) e envia apenas o resumo JSON para um Agente LLM gerar o relatório executivo e o plano de mitigação.
 
 ## Stack Tecnológica
@@ -41,7 +41,7 @@ Você possui a ferramenta `graphify` instalada no ambiente local. Para minimizar
 Antes de implementar cada módulo na leitura inicial única, consulte obrigatoriamente:
 - `docs/01_PROTOCOL_PARSING_SPEC.md`: Regras de bytes para Modbus TCP, OPC UA e desvios de zona IT/OT (Modelo Purdue).
 - `docs/02_IEC62443_AI_SCHEMA.md`: Contratos JSON (Pydantic) entre o Scapy, a LLM e o Frontend.
-## UI & Design Constraints — OT-Shield Design System
+## UI & Design Constraints — Purdue Audit Design System
 Fonte de verdade: `DESIGN.md` (raiz) e `design-system/SKILL.md`. Leia antes de qualquer trabalho de UI. Resumo:
 - Base TypeUI "Enterprise": superfícies areia (`canvas` #edeade, `band` #f5f3ea, `panel` #fbfaf6), primária verde-petróleo (`accent` #072c2c).
 - Playfair Display (títulos, entrelinha 1, 32 px até o próximo elemento) + Inter (corpo ≥ 16 px, apoio ≥ 14 px) + IBM Plex Mono com `tabular-nums` (`.num`) para dados.

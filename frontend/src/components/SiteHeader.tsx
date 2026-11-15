@@ -14,11 +14,11 @@ export function SiteHeader({ onHome, onAbout, context }: SiteHeaderProps) {
     <header className="no-print sticky top-0 z-40 border-b border-line bg-panel">
       <div className="flex h-12 items-center justify-between gap-3 px-4">
         <div className="flex min-w-0 items-center gap-2">
-          <Link href="/" className="flex shrink-0 items-center gap-2" aria-label="OT-Shield AI — página inicial">
+          <Link href="/" className="flex shrink-0 items-center gap-2" aria-label="Purdue Audit — página inicial">
             <span className="grid h-7 w-7 place-items-center rounded border border-line bg-band font-mono text-[10px] font-medium text-fg" aria-hidden>
               OT
             </span>
-            <span className="font-display text-[17px] font-semibold text-fg">OT-Shield</span>
+            <span className="font-display text-[17px] font-semibold text-fg">Purdue Audit</span>
           </Link>
           <ChevronRight className="h-3.5 w-3.5 shrink-0 text-fg-faint" aria-hidden />
           <button

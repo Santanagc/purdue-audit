@@ -14,7 +14,7 @@ const display = Playfair_Display({
 const mono = IBM_Plex_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-mono", display: "swap" });
 
 export const metadata: Metadata = {
-  title: "OT-Shield AI — Auditoria Passiva de Redes Industriais (ISA/IEC 62443)",
+  title: "Purdue Audit — Auditoria Passiva de Redes Industriais (ISA/IEC 62443)",
   description:
     "Envie um PCAP da sua rede OT e receba um laudo de cibersegurança industrial alinhado à ISA/IEC 62443-3-3: Modbus TCP, OPC UA e segmentação do Modelo Purdue. Análise passiva e stateless.",
   keywords: ["IEC 62443", "OT Security", "Modbus", "OPC UA", "Modelo Purdue", "SCADA", "CLP", "PCAP"],

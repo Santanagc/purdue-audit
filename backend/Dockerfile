@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1.7
-# OT-Shield AI — backend FastAPI (Google Cloud Run / Render.com)
+# Purdue Audit — backend FastAPI (Google Cloud Run / Render.com)
 
 FROM python:3.12-slim AS builder
 ENV PIP_NO_CACHE_DIR=1 PIP_DISABLE_PIP_VERSION_CHECK=1

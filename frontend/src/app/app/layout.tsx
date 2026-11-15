@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
 export const metadata: Metadata = {
-  title: "Ferramenta · OT-Shield AI",
+  title: "Ferramenta · Purdue Audit",
   description: "Envie uma captura .pcap/.pcapng e gere o laudo de auditoria passiva ISA/IEC 62443-3-3.",
 };
 

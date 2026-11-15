@@ -44,7 +44,7 @@ function ReportWindow() {
 
   return (
     <div className="overflow-hidden rounded-lg border border-line bg-panel">
-      <WindowBar url={`ot-shield/app · laudo · ${DEMO_REPORT.file_name}`} />
+      <WindowBar url={`purdue-audit/app · laudo · ${DEMO_REPORT.file_name}`} />
       <div className="grid grid-cols-[minmax(0,1fr)] gap-px bg-line md:grid-cols-[220px_minmax(0,1fr)]">
         <div className="bg-panel p-4">
           <p className="label">Security score</p>

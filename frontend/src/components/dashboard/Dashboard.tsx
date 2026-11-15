@@ -37,7 +37,7 @@ function PrintHeader({ result }: { result: AuditResponse }) {
         <div>
           <p className="flex items-center gap-1.5 text-[11pt] font-semibold text-fg">
             <ShieldCheck className="h-4 w-4" aria-hidden />
-            OT-Shield AI
+            Purdue Audit
           </p>
           <h1 className="mt-1 text-[16pt] font-semibold text-fg">Laudo Técnico de Auditoria de Cibersegurança Industrial</h1>
           <p className="text-[9pt] text-fg-muted">Análise passiva de tráfego OT · Referência normativa ISA/IEC 62443-3-3</p>
@@ -88,7 +88,7 @@ export function Dashboard({ result, snapshot, onNewAudit }: DashboardProps) {
   const exportPdf = useCallback(() => {
     const previousTitle = document.title;
     const stamp = new Date(result.generated_at).toISOString().slice(0, 10);
-    document.title = `Laudo-OT-Shield-IEC62443-${stamp}-${result.audit_id.slice(0, 8)}`;
+    document.title = `Laudo-Purdue-Audit-IEC62443-${stamp}-${result.audit_id.slice(0, 8)}`;
     const restore = () => {
       document.title = previousTitle;
       window.removeEventListener("afterprint", restore);

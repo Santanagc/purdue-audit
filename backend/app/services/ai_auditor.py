@@ -25,7 +25,7 @@ from app.models.schemas import (
 )
 from app.services.pcap_analyzer import build_llm_payload, llm_payload_size
 
-logger = logging.getLogger("otshield.ai_auditor")
+logger = logging.getLogger("purdueaudit.ai_auditor")
 
 ProviderLabel = Literal["anthropic", "openai", "mock", "mock-fallback"]
 

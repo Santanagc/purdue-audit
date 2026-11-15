@@ -14,7 +14,7 @@ SAMPLE_PCAP_PATH: Path = BACKEND_DIR / "tests" / "sample_ot_capture.pcap"
 
 
 class Settings(BaseSettings):
-    """Variáveis de ambiente do backend OT-Shield AI."""
+    """Variáveis de ambiente do backend Purdue Audit."""
 
     model_config = SettingsConfigDict(
         env_file=str(BACKEND_DIR / ".env"),

@@ -1,4 +1,4 @@
-# PROGRESS — OT-Shield AI (edição portfólio)
+# PROGRESS — Purdue Audit (edição portfólio)
 **Estado:** pronto para publicar (2026-11-15) · derivado de `../ot-shield-ai` (versão SaaS completa, intacta)
 
 ## Diferenças em relação ao SaaS

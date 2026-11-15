@@ -34,7 +34,7 @@ function CurlSample() {
     <>
       <C># Envia a captura; o arquivo é apagado ao fim da análise</C>
       {"\n"}
-      <K>curl</K> -X POST <S>&quot;$OT_SHIELD_API/api/v1/audit/upload&quot;</S> \{"\n"}
+      <K>curl</K> -X POST <S>&quot;$PURDUE_AUDIT_API/api/v1/audit/upload&quot;</S> \{"\n"}
       {"  "}-F <S>&quot;file=@planta.pcap&quot;</S>
     </>
   );

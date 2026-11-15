@@ -48,12 +48,12 @@ jobs:
       - uses: hadolint/hadolint-action@v3.1.0
         with:
           dockerfile: backend/Dockerfile
-      - run: docker build -t ot-shield-api ./backend
+      - run: docker build -t purdue-audit-api ./backend
       - name: Smoke test do container
         run: |
-          docker run -d --name api -p 8080:8080 ot-shield-api
+          docker run -d --name api -p 8080:8080 purdue-audit-api
           for i in $(seq 1 30); do curl -sf http://localhost:8080/api/v1/health && break; sleep 1; done
           test "$(curl -s -o /dev/null -w '%{http_code}' http://localhost:8080/docs)" = "404"
           test "$(curl -s -o /dev/null -w '%{http_code}' -X POST http://localhost:8080/api/v1/audit/demo)" = "200"
-          test "$(docker inspect --format '{{.Config.User}}' ot-shield-api)" = "10001:10001"
+          test "$(docker inspect --format '{{.Config.User}}' purdue-audit-api)" = "10001:10001"
           test "$(docker inspect --format '{{.State.Health.Status}}' api)" != "unhealthy"

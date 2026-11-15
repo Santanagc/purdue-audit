@@ -1,6 +1,6 @@
 ---
-name: OT-Shield Design System
-description: Sistema visual do OT-Shield AI — superfícies areia, verde-petróleo como cor primária, títulos em serifa e dados em monoespaçada, com cor de status reservada a severidade de segurança.
+name: Purdue Audit Design System
+description: Sistema visual do Purdue Audit — superfícies areia, verde-petróleo como cor primária, títulos em serifa e dados em monoespaçada, com cor de status reservada a severidade de segurança.
 colors:
   canvas: "#edeade"
   band: "#f5f3ea"
@@ -51,9 +51,9 @@ spacing:
   sourceScale: "4/8/12/16/24/32/40/56/80/112"
 ---
 
-# OT-Shield Design System
+# Purdue Audit Design System
 
-Design system próprio do OT-Shield AI, construído a partir de três fontes:
+Design system próprio do Purdue Audit, construído a partir de três fontes:
 
 | Fonte | O que foi aproveitado |
 |---|---|
@@ -70,7 +70,7 @@ Fazer uma ferramenta técnica de auditoria parecer um documento que um engenheir
 baseada em dados reais. A interface deve transmitir confiança institucional (laudo, norma, compliance) sem
 perder a densidade de informação de uma ferramenta de engenharia.
 
-- **Produto:** OT-Shield AI — auditoria passiva de redes OT/ICS com laudo ISA/IEC 62443-3-3.
+- **Produto:** Purdue Audit — auditoria passiva de redes OT/ICS com laudo ISA/IEC 62443-3-3.
 - **Público:** técnicos e engenheiros de automação, analistas de segurança OT, recrutadores técnicos.
 - **Superfícies:** página de apresentação (`/`), ferramenta e laudo (`/app`), laudo impresso em A4 (PDF).
 
@@ -144,7 +144,7 @@ Regras (fundamentos TypeUI):
 |---|---|---|
 | **Faixa de anúncio** (`AnnouncementBar`) | Fundo primária, texto 14 px `band`, link sublinhado. Altura mínima 44 px | hover do link: `inverse-muted` |
 | **Navegação** (`LandingNav`) | 64 px; links à esquerda, marca centralizada, ações à direita; fixa no topo com `canvas/95` | link: hover `raised/70` |
-| **Marca** (`Wordmark`) | Selo "OT" monoespaçado em caixa de 32 px + "OT-Shield" em Playfair 19 px; variante `inverse` | — |
+| **Marca** (`Wordmark`) | Selo "OT" monoespaçado em caixa de 32 px + "Purdue Audit" em Playfair 19 px; variante `inverse` | — |
 | **Botão primário** (`.btn-primary`) | 44 px (48 px em `.btn-lg`), raio 4 px, fundo primária, texto `band` | hover `accent-hover`; foco anel `info` 2 px; desabilitado 50 % |
 | **Botão secundário** (`.btn-secondary`) | Fundo `raised`, texto `fg` | hover `line/60` |
 | **Botão fantasma** (`.btn-ghost`) | Transparente, texto `fg-muted` | hover `raised` |

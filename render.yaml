@@ -1,7 +1,7 @@
-# Render Blueprint — backend FastAPI do OT-Shield AI (edição portfólio, plano gratuito).
+# Render Blueprint — backend FastAPI do Purdue Audit (edição portfólio, plano gratuito).
 services:
   - type: web
-    name: ot-shield-api
+    name: purdue-audit-api
     runtime: docker
     plan: free
     dockerfilePath: ./backend/Dockerfile

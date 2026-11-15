@@ -115,7 +115,7 @@ export function Landing({ view, onDemo, onUpload, onCancel, onDismissError, maxU
         </section>
 
         <p className="num mt-8 text-[11px] text-fg-faint">
-          OT-Shield AI · projeto de portfólio{AUTHOR_NAME ? ` de ${AUTHOR_NAME}` : ""} · ferramenta passiva e
+          Purdue Audit · projeto de portfólio{AUTHOR_NAME ? ` de ${AUTHOR_NAME}` : ""} · ferramenta passiva e
           defensiva: nunca se conecta a redes ou CLPs reais.
         </p>
       </div>

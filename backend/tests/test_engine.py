@@ -244,7 +244,7 @@ def client() -> TestClient:
 
 
 def _leftover_temp_files() -> set[str]:
-    return set(glob.glob(os.path.join(tempfile.gettempdir(), "otshield_*")))
+    return set(glob.glob(os.path.join(tempfile.gettempdir(), "purdueaudit_*")))
 
 
 def test_health(client: TestClient) -> None:

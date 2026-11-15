@@ -1,4 +1,4 @@
-"""API FastAPI do OT-Shield AI (stateless: nenhum PCAP é retido após a análise)."""
+"""API FastAPI do Purdue Audit (stateless: nenhum PCAP é retido após a análise)."""
 
 from __future__ import annotations
 
@@ -34,13 +34,13 @@ PCAP_MAGIC_NUMBERS: tuple[bytes, ...] = (
 UPLOAD_CHUNK_BYTES = 1024 * 1024
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
-logger = logging.getLogger("otshield.api")
+logger = logging.getLogger("purdueaudit.api")
 
 settings = get_settings()
 audit_limiter = SlidingWindowRateLimiter(settings.rate_limit_audit_per_minute)
 
 app = FastAPI(
-    title="OT-Shield AI",
+    title="Purdue Audit",
     version=APP_VERSION,
     description=(
         "Auditoria passiva de tráfego industrial (Modbus TCP, OPC UA, Modelo Purdue) com laudo ISA/IEC 62443-3-3. "
@@ -138,7 +138,7 @@ async def audit_upload(file: UploadFile = File(..., description="Captura .pcap o
 
     max_mb = settings.max_upload_mb
     max_bytes = max_mb * 1024 * 1024
-    fd, temp_path = tempfile.mkstemp(prefix="otshield_", suffix=extension)
+    fd, temp_path = tempfile.mkstemp(prefix="purdueaudit_", suffix=extension)
     started = time.perf_counter()
     written = 0
     try:

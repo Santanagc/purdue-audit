@@ -1,17 +1,17 @@
 ---
-name: design-system-ot-shield
-description: Aplica o OT-Shield Design System (areia + verde-petróleo, Playfair Display, Inter, IBM Plex Mono, cor só para severidade) ao criar ou alterar qualquer interface do OT-Shield AI. Use ao escrever componentes, páginas, estilos ou revisar UI deste repositório.
+name: design-system-purdue-audit
+description: Aplica o Purdue Audit Design System (areia + verde-petróleo, Playfair Display, Inter, IBM Plex Mono, cor só para severidade) ao criar ou alterar qualquer interface do Purdue Audit. Use ao escrever componentes, páginas, estilos ou revisar UI deste repositório.
 license: MIT
 ---
 
-# OT-Shield Design System
+# Purdue Audit Design System
 
 ## Mission
 Interfaces que parecem um laudo técnico que um engenheiro assinaria: sóbrias, legíveis e baseadas em dados reais.
 Fonte de verdade completa: `DESIGN.md` na raiz do repositório.
 
 ## Brand
-- Produto: OT-Shield AI — auditoria passiva de redes OT/ICS, laudo ISA/IEC 62443-3-3.
+- Produto: Purdue Audit — auditoria passiva de redes OT/ICS, laudo ISA/IEC 62443-3-3.
 - Público: engenharia de automação, segurança OT, recrutadores técnicos.
 - Superfícies: página de apresentação, ferramenta `/app`, laudo impresso A4.
 
