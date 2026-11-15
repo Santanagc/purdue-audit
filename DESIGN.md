@@ -1,6 +1,6 @@
 ---
 name: Purdue Audit Design System
-description: Sistema visual do Purdue Audit — superfícies areia, verde-petróleo como cor primária, títulos em serifa e dados em monoespaçada, com cor de status reservada a severidade de segurança.
+description: Sistema visual do Purdue Audit — superfícies areia, verde-petróleo como cor primária, títulos em Inter Tight e dados em monoespaçada, com cor de status reservada a severidade de segurança.
 colors:
   canvas: "#edeade"
   band: "#f5f3ea"
@@ -24,15 +24,17 @@ colors:
   info: "#0c5cab"
 typography:
   display:
-    fontFamily: "Playfair Display"
-    fontWeight: 600
+    fontFamily: "Inter Tight"
+    fontWeight: 700
     fontSize: "40px → 56px → 64px"
     lineHeight: 1
+    letterSpacing: "-0.02em"
   h2:
-    fontFamily: "Playfair Display"
+    fontFamily: "Inter Tight"
     fontWeight: 600
     fontSize: "32px → 40px"
     lineHeight: 1
+    letterSpacing: "-0.01em"
   body:
     fontFamily: "Inter"
     fontSize: 16px
@@ -57,7 +59,7 @@ Design system próprio do Purdue Audit, construído a partir de três fontes:
 
 | Fonte | O que foi aproveitado |
 |---|---|
-| Estilo **Enterprise** do registro TypeUI (prévia em `bergside/typeui/registry-examples`) | Paleta areia + verde-petróleo, títulos em serifa, faixa de anúncio, navegação com marca centralizada, linha de métricas, faixas alternadas |
+| Estilo **Enterprise** do registro TypeUI (prévia em `bergside/typeui/registry-examples`) | Paleta areia + verde-petróleo (os títulos em serifa da prévia foram trocados por Inter Tight a pedido do autor), faixa de anúncio, navegação com marca centralizada, linha de métricas, faixas alternadas |
 | **Fundamentos TypeUI** (`skills/fundamentals`) | Entrelinha 1 e 32 px abaixo em títulos de exibição; corpo ≥ 16 px; texto de apoio ≥ 14 px; alvos de toque ≥ 44 px; WCAG 2.2 AA; `h4` em títulos de lista |
 | **Domínio OT** (ISA-101 / ISA-18.2) | Cor apenas para anormalidade; severidade crítico → alto → médio → baixo, sempre com rótulo textual |
 
@@ -105,15 +107,15 @@ Regras:
 
 | Papel | Família | Tamanho / peso / entrelinha | Classe |
 |---|---|---|---|
-| Título de página (h1) | Playfair Display | 40 → 56 → 64 px · 600 · 1 | `.display` |
-| Abertura de seção (h2) | Playfair Display | 32 → 40 px · 600 · 1 | `.h-section` |
-| Título de cartão (h3) | Playfair Display | 24 px · 600 · 1,25 | — |
+| Título de página (h1) | Inter Tight | 40 → 56 → 64 px · 700 · 1 · −0,02em | `.display` |
+| Abertura de seção (h2) | Inter Tight | 32 → 40 px · 600 · 1 · −0,01em | `.h-section` |
+| Título de cartão (h3) | Inter Tight | 24 px · 600 · 1,25 | — |
 | Rótulo de seção | Inter | 12 px · 600 · caixa alta · +0,14em | `.eyebrow` |
 | Texto de apoio | Inter | 16 → 18 px · 400 · 1,6 | `.lede` |
 | Corpo | Inter | 15–16 px · 400 · 1,5 | — |
 | Rótulo técnico | IBM Plex Mono | 12 px · 500 · caixa alta | `.label` |
 | Dado (IP, porta, ID, Function Code, métrica) | IBM Plex Mono | herdado · `tabular-nums` | `.num` |
-| CTA de destaque | Playfair Display | 16 px · 500 | `.btn-lg` |
+| CTA de destaque | Inter Tight | 16 px · 600 | `.btn-lg` |
 
 Regras (fundamentos TypeUI):
 - `h1` e `h2` **devem** usar entrelinha 1 e 32 px até o próximo elemento (`mt-8` no texto de apoio).
@@ -144,7 +146,7 @@ Regras (fundamentos TypeUI):
 |---|---|---|
 | **Faixa de anúncio** (`AnnouncementBar`) | Fundo primária, texto 14 px `band`, link sublinhado. Altura mínima 44 px | hover do link: `inverse-muted` |
 | **Navegação** (`LandingNav`) | 64 px; links à esquerda, marca centralizada, ações à direita; fixa no topo com `canvas/95` | link: hover `raised/70` |
-| **Marca** (`Wordmark`) | Selo "OT" monoespaçado em caixa de 32 px + "Purdue Audit" em Playfair 19 px; variante `inverse` | — |
+| **Marca** (`Wordmark`) | Selo "OT" monoespaçado em caixa de 32 px + "Purdue Audit" em Inter Tight 19 px; variante `inverse` | — |
 | **Botão primário** (`.btn-primary`) | 44 px (48 px em `.btn-lg`), raio 4 px, fundo primária, texto `band` | hover `accent-hover`; foco anel `info` 2 px; desabilitado 50 % |
 | **Botão secundário** (`.btn-secondary`) | Fundo `raised`, texto `fg` | hover `line/60` |
 | **Botão fantasma** (`.btn-ghost`) | Transparente, texto `fg-muted` | hover `raised` |
@@ -152,7 +154,7 @@ Regras (fundamentos TypeUI):
 | **Lâmpada** (`.dot`) | Círculo de 8 px com a cor de severidade + rótulo ao lado | — |
 | **Abertura de seção** (`SectionHead`) | `.eyebrow` → `h2.h-section` → `.lede` (máx. 672 px). `align="center"` em seções institucionais | — |
 | **Ficha técnica** (`TitleBlock`) | Grade 2/3 colunas separada por linhas de 1 px; rótulo 13 px + valor monoespaçado 14 px | valores longos truncam |
-| **Cartão** (`Card`) | `panel`, borda `line`, raio 8 px, padding 24/32 px; código de regra no topo, título h3 em serifa | — |
+| **Cartão** (`Card`) | `panel`, borda `line`, raio 8 px, padding 24/32 px; código de regra no topo, título h3 em Inter Tight | — |
 | **Tabela** (`.data-table`) | Cabeçalho `band` + `.label`; linhas 14 px separadas por `line`; contêiner com `overflow-x-auto` | linha: hover `band`. Impressão: 8 pt, sem largura mínima |
 | **Janela de produto** (`ProductShowcase`) | Barra `band` com três pontos, URL monoespaçada; cartões flutuantes só em ≥ 1024 px | — |
 | **Janela de código** (`ApiSection`) | Fundo primária, abas Plex Mono 13 px com 44 px de altura, realce em tons areia e âmbar para números | aba ativa: borda inferior `inverse-fg` |

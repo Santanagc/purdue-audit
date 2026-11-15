@@ -1,6 +1,6 @@
 ---
 name: design-system-purdue-audit
-description: Aplica o Purdue Audit Design System (areia + verde-petróleo, Playfair Display, Inter, IBM Plex Mono, cor só para severidade) ao criar ou alterar qualquer interface do Purdue Audit. Use ao escrever componentes, páginas, estilos ou revisar UI deste repositório.
+description: Aplica o Purdue Audit Design System (areia + verde-petróleo, Inter Tight, Inter, IBM Plex Mono, cor só para severidade) ao criar ou alterar qualquer interface do Purdue Audit. Use ao escrever componentes, páginas, estilos ou revisar UI deste repositório.
 license: MIT
 ---
 
@@ -16,8 +16,8 @@ Fonte de verdade completa: `DESIGN.md` na raiz do repositório.
 - Superfícies: página de apresentação, ferramenta `/app`, laudo impresso A4.
 
 ## Style Foundations
-- Visual: base TypeUI Enterprise — superfícies areia, verde-petróleo primário, títulos em serifa, sem sombras.
-- Tipografia: display/h2/h3 = Playfair Display 600, entrelinha 1; corpo = Inter 16 px/1,5; dados = IBM Plex Mono + `tabular-nums`.
+- Visual: base TypeUI Enterprise — superfícies areia, verde-petróleo primário, títulos em Inter Tight (sem serifa, compacta), sem sombras.
+- Tipografia: display = Inter Tight 700 (tracking −0,02em), h2/h3 = Inter Tight 600 (−0,01em), entrelinha 1; corpo = Inter 16 px/1,5; dados = IBM Plex Mono + `tabular-nums`.
 - Escala: 12/14/16/20/24/32/40/64.
 - Cores (tokens Tailwind): `canvas`, `band`, `panel`, `raised`, `line`, `line-strong`, `fg`, `fg-muted`, `fg-faint`,
   `accent` (#072c2c), `inverse-*`, `status-critical|high|medium|low|info`.

@@ -8,7 +8,7 @@
 - Demo resiliente: `frontend/public/demo-report.json` (gerado por `app.utils.export_demo_report`) quando a API hiberna
 - Rotas: `/` landing estilo produto (hero + diagrama Purdue SVG, vitrine, bento, números, API, segurança) · `/app` ferramenta
 - `/app?demo` abre o laudo direto (usado para gerar `docs/laudo-exemplo.pdf` via Chrome headless)
-- Design system próprio: `DESIGN.md` + `design-system/SKILL.md` (base TypeUI Enterprise: areia + verde-petróleo, Playfair/Inter/Plex Mono)
+- Design system próprio: `DESIGN.md` + `design-system/SKILL.md` (base TypeUI Enterprise: areia + verde-petróleo, Inter Tight/Inter/Plex Mono)
 - Motor: papel `External Host` para IPs públicos; OT-MODBUS-001 não marca o mestre primário; evidências com plural correto e ordem determinística
 
 ## Validação

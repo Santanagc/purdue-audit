@@ -102,7 +102,7 @@
 
   /* CTA de destaque: rótulo em serifa, como no estilo Enterprise. */
   .btn-lg {
-    @apply h-12 px-5 font-display text-[16px];
+    @apply h-12 px-5 font-display text-[16px] font-semibold;
   }
 
   .input {
@@ -148,11 +148,11 @@
 
   /* Títulos de exibição: entrelinha 1 e 32 px até o próximo elemento (fundamentos TypeUI). */
   .display {
-    @apply font-display text-[40px] font-semibold leading-none tracking-[-0.01em] text-fg sm:text-[56px] lg:text-[64px];
+    @apply font-display text-[40px] font-bold leading-none tracking-[-0.02em] text-fg sm:text-[56px] lg:text-[64px];
   }
 
   .h-section {
-    @apply font-display text-[32px] font-semibold leading-none tracking-[-0.005em] text-fg sm:text-[40px];
+    @apply font-display text-[32px] font-semibold leading-none tracking-[-0.01em] text-fg sm:text-[40px];
   }
 
   .lede {

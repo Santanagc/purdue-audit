@@ -1,11 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import { IBM_Plex_Mono, Inter, Playfair_Display } from "next/font/google";
+import { IBM_Plex_Mono, Inter, Inter_Tight } from "next/font/google";
 import type { ReactNode } from "react";
 
 import "./globals.css";
 
 const sans = Inter({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
-const display = Playfair_Display({
+const display = Inter_Tight({
   subsets: ["latin"],
   weight: ["500", "600", "700"],
   variable: "--font-display",

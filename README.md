@@ -51,7 +51,7 @@ Envie um `.pcap` da rede de automação e receba, em segundos, um laudo técnico
 - **`/app`**: a ferramenta. Upload ou demo, painel de progresso, laudo com navegação por seções e exportação em PDF.
 - Responsiva (validada a 390 px por emulação de dispositivo), com animações respeitando `prefers-reduced-motion`.
 - Design system próprio ([`DESIGN.md`](DESIGN.md) e [`design-system/SKILL.md`](design-system/SKILL.md)), com base no estilo
-  Enterprise do TypeUI: superfícies areia, verde-petróleo, Playfair Display + Inter + IBM Plex Mono, cor reservada a
+  Enterprise do TypeUI: superfícies areia, verde-petróleo, Inter Tight + Inter + IBM Plex Mono, cor reservada a
   severidade e acessibilidade WCAG 2.2 AA.
 
 ## Arquitetura

@@ -44,7 +44,7 @@ Antes de implementar cada módulo na leitura inicial única, consulte obrigatori
 ## UI & Design Constraints — Purdue Audit Design System
 Fonte de verdade: `DESIGN.md` (raiz) e `design-system/SKILL.md`. Leia antes de qualquer trabalho de UI. Resumo:
 - Base TypeUI "Enterprise": superfícies areia (`canvas` #edeade, `band` #f5f3ea, `panel` #fbfaf6), primária verde-petróleo (`accent` #072c2c).
-- Playfair Display (títulos, entrelinha 1, 32 px até o próximo elemento) + Inter (corpo ≥ 16 px, apoio ≥ 14 px) + IBM Plex Mono com `tabular-nums` (`.num`) para dados.
+- Inter Tight (títulos, peso 600–700, tracking negativo, entrelinha 1, 32 px até o próximo elemento) + Inter (corpo ≥ 16 px, apoio ≥ 14 px) + IBM Plex Mono com `tabular-nums` (`.num`) para dados.
 - Cor de status só para severidade, como `.dot` + rótulo textual. Sem sombras, gradientes, roxo/indigo ou segunda cor de marca.
 - Raios 4/6/8 px; alvos de toque ≥ 44 px; foco 2 px `status-info`; WCAG 2.2 AA.
 - Seções abrem com `SectionHead` e alternam `canvas` ↔ `band`; diagramas e laudos levam `TitleBlock`.
