@@ -91,7 +91,7 @@ export default function LandingPage() {
               <span className="text-[15px] font-semibold text-fg">Topologia da captura de demonstração</span>
               <span className="text-[14px] text-fg-muted">Modelo Purdue · tracejado = conduíte violado</span>
             </figcaption>
-            <div className="overflow-x-auto">
+            <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Diagrama do Modelo Purdue (role na horizontal em telas estreitas)">
               <div className="min-w-[620px] p-4 sm:p-6">
                 <PurdueDiagram />
               </div>

@@ -294,6 +294,16 @@ def test_upload_corrupt_pcap_returns_422_and_cleans_up(client: TestClient) -> No
     assert _leftover_temp_files() == before
 
 
+def test_upload_garbage_after_valid_header_returns_422(client: TestClient) -> None:
+    before = _leftover_temp_files()
+    header = bytes.fromhex("d4c3b2a1" "02000400" "00000000" "00000000" "ffff0000" "01000000")  # pcap LE, linktype Ethernet
+    garbage = header + bytes(range(256)) * 20
+    response = client.post("/api/v1/audit/upload", files={"file": ("lixo.pcap", garbage, "application/octet-stream")})
+    assert response.status_code == 422
+    assert "Nenhum host IP" in response.json()["detail"]
+    assert _leftover_temp_files() == before
+
+
 def test_upload_size_limit_returns_413(client: TestClient, monkeypatch: pytest.MonkeyPatch) -> None:
     from app import main
 

@@ -142,6 +142,7 @@ export function ApiSection({ sample }: { sample: ApiSample }) {
             role="tabpanel"
             id={`${baseId}-${tab}-panel`}
             aria-labelledby={`${baseId}-${tab}-tab`}
+            tabIndex={0}
             className="overflow-x-auto p-5 font-mono text-[13px] leading-relaxed text-inverse-fg"
           >
             <code>{tab === "curl" ? <CurlSample /> : <PythonSample />}</code>
@@ -151,7 +152,11 @@ export function ApiSection({ sample }: { sample: ApiSample }) {
               <span className="dot bg-status-low" aria-hidden />
               200 OK · resposta da captura de demonstração
             </p>
-            <pre className="overflow-x-auto p-5 font-mono text-[13px] leading-relaxed text-inverse-fg">
+            <pre
+              tabIndex={0}
+              aria-label="Resposta JSON de exemplo"
+              className="overflow-x-auto p-5 font-mono text-[13px] leading-relaxed text-inverse-fg"
+            >
               <code>
                 <ResponseSample sample={sample} />
               </code>

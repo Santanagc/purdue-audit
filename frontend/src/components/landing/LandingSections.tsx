@@ -421,11 +421,11 @@ export function SecuritySection() {
   return (
     <section id="seguranca" className="frame section scroll-mt-20" aria-labelledby="security-title">
       <SectionHead kicker="Segurança" title="Controles da própria ferramenta." titleId="security-title">
-        Capturas de planta revelam topologia, endereçamento e lógica de controle. Cada controle abaixo é coberto pelos 33
+        Capturas de planta revelam topologia, endereçamento e lógica de controle. Cada controle abaixo é coberto pelos 34
         testes automatizados do backend.
       </SectionHead>
 
-      <div className="mt-14 overflow-x-auto rounded-lg border border-line bg-panel">
+      <div className="mt-14 overflow-x-auto rounded-lg border border-line bg-panel" tabIndex={0} role="region" aria-label="Controles de segurança">
         <table className="data-table min-w-[680px]">
           <thead>
             <tr>

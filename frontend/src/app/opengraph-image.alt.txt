@@ -1,0 +1,1 @@
+Purdue Audit: laudo de exemplo com nota 17/100 (crítico), 5 achados críticos, 4 altos, 7 ativos e 140 pacotes analisados.

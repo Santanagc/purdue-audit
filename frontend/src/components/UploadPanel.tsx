@@ -58,6 +58,20 @@ export function UploadPanel({ disabled, backendOnline, maxUploadMb, error, onDem
       />
 
       <div className="p-4">
+        <input
+          ref={inputRef}
+          id={inputId}
+          type="file"
+          accept={ACCEPTED_EXTENSIONS.join(",")}
+          className="sr-only"
+          disabled={disabled}
+          tabIndex={-1}
+          aria-label="Arquivo de captura PCAP"
+          onChange={(event) => {
+            selectFile(event.target.files?.[0]);
+            event.target.value = "";
+          }}
+        />
         <div
           role="button"
           tabIndex={disabled ? -1 : 0}
@@ -75,18 +89,6 @@ export function UploadPanel({ disabled, backendOnline, maxUploadMb, error, onDem
             dragging ? "border-accent bg-accent/[0.06]" : "border-line-strong hover:border-fg-faint hover:bg-raised/40"
           }`}
         >
-          <input
-            ref={inputRef}
-            id={inputId}
-            type="file"
-            accept={ACCEPTED_EXTENSIONS.join(",")}
-            className="sr-only"
-            disabled={disabled}
-            onChange={(event) => {
-              selectFile(event.target.files?.[0]);
-              event.target.value = "";
-            }}
-          />
           <Upload className="mb-3 h-5 w-5 text-fg-muted" aria-hidden />
           <p className="text-[14px] font-medium text-fg">Arraste o arquivo de captura aqui</p>
           <p className="mt-1 text-[12px] text-fg-faint">ou clique para selecionar</p>

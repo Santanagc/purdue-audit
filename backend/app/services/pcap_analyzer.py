@@ -950,6 +950,11 @@ def analyze_pcap(file_path: str | Path, max_packets: int = DEFAULT_MAX_PACKETS) 
 
     if state.total_packets == 0:
         raise PcapAnalysisError("Captura vazia: nenhum pacote encontrado.")
+    if not state.assets:
+        # Cabeçalho válido seguido de lixo (ou só tráfego não-IP) não pode virar um laudo "nota 100 / risco baixo".
+        raise PcapAnalysisError(
+            "Nenhum host IP identificado na captura: o arquivo pode estar corrompido ou não conter tráfego auditável."
+        )
 
     roles: dict[str, InferredRole] = {ip: _infer_role(a) for ip, a in state.assets.items()}
     flags = SecurityFlags()

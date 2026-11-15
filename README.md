@@ -29,6 +29,7 @@ Envie um `.pcap` da rede de automação e receba, em segundos, um laudo técnico
 | ![Vulnerabilidades](docs/screenshots/05-vulnerabilidades.jpg) | ![Ferramenta](docs/screenshots/01-inicio.jpg) |
 
 📄 **Exemplo de laudo exportado em PDF:** [`docs/laudo-exemplo.pdf`](docs/laudo-exemplo.pdf)
+✅ **Relatório de testes (API, navegador, acessibilidade, celular):** [`docs/TESTES.md`](docs/TESTES.md)
 
 ---
 

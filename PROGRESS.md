@@ -12,7 +12,7 @@
 - Motor: papel `External Host` para IPs públicos; OT-MODBUS-001 não marca o mestre primário; evidências com plural correto e ordem determinística
 
 ## Validação
-- `pytest -q --tb=short` → 33 passed (inclui 413/422 sem temporário, XFF forjado, contrato do snapshot)
+- `pytest -q --tb=short` → 34 passed (inclui 413/422 sem temporário, PCAP com lixo após o cabeçalho, XFF forjado, contrato do snapshot)
 - tsc + `next build` ok; testado no Chrome: demo offline (snapshot) e online (ao vivo), modal, PDF claro (11 págs)
 - BUGs corrigidos (também no SaaS): PcapReader não fechava o arquivo com cabeçalho inválido; ordem de mestres empatados na evidência variava com o hash seed
 - UI validada: 390 px sem rolagem horizontal; PDF A4 sem tabela cortada; "Nova auditoria" limpa `?demo`
