@@ -2,6 +2,8 @@
 
 **Auditoria passiva de redes industriais (OT/ICS) a partir de capturas de tráfego, com laudo alinhado à ISA/IEC 62443-3-3.**
 
+🔗 **Demonstração online:** [ot-shield-ai.vercel.app](https://ot-shield-ai.vercel.app) · [laudo de exemplo](https://ot-shield-ai.vercel.app/app?demo)
+
 Envie um `.pcap` da rede de automação e receba, em segundos, um laudo técnico com:
 - inventário de ativos (CLPs, SCADA/HMI, estações de engenharia);
 - falhas de **Modbus TCP** e **OPC UA**;
