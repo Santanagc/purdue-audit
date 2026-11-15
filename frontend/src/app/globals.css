@@ -1,0 +1,267 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ------------------------------------------------------------------------- */
+/* Design system do OT-Shield — base TypeUI "Enterprise" (ver DESIGN.md).     */
+/* Superfícies areia, verde-petróleo como cor primária, serifa nos títulos.   */
+/* Cores de status reservadas a severidade, sempre com rótulo textual.        */
+/* ------------------------------------------------------------------------- */
+
+:root {
+  color-scheme: light;
+  --canvas: 237 234 222; /* #edeade */
+  --band: 245 243 234; /* #f5f3ea */
+  --panel: 251 250 246; /* #fbfaf6 */
+  --raised: 227 224 211; /* #e3e0d3 */
+  --line: 211 208 191; /* #d3d0bf */
+  --line-strong: 168 164 146; /* #a8a492 */
+  --fg: 17 24 39; /* #111827 */
+  --fg-muted: 75 85 99; /* #4b5563 */
+  --fg-faint: 94 99 110; /* #5e636e — ≥ 4,5:1 sobre raised */
+  --accent: 7 44 44; /* #072c2c */
+  --accent-hover: 15 61 59; /* #0f3d3b */
+  --accent-text: 7 44 44;
+  --inverse: 7 44 44;
+  --inverse-raised: 14 58 57;
+  --inverse-line: 34 80 78;
+  --inverse-fg: 245 243 234;
+  --inverse-muted: 168 190 186;
+  --status-critical: 180 35 24; /* #b42318 */
+  --status-high: 196 82 14; /* #c4520e */
+  --status-medium: 181 132 0; /* #b58400 */
+  --status-low: 4 120 87; /* #047857 */
+  --status-info: 12 92 171; /* #0c5cab */
+}
+
+@layer base {
+  body {
+    @apply bg-canvas font-sans text-[16px] leading-[1.5] text-fg antialiased;
+  }
+
+  ::selection {
+    background: rgb(var(--accent) / 0.18);
+  }
+
+  :focus-visible {
+    outline: 2px solid rgb(var(--status-info));
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+}
+
+@layer components {
+  .panel {
+    @apply rounded-lg border border-line bg-panel;
+  }
+
+  .panel-header {
+    @apply flex min-h-[48px] flex-wrap items-center justify-between gap-2 border-b border-line px-4 py-2.5;
+  }
+
+  .label {
+    @apply font-mono text-[12px] font-medium uppercase tracking-[0.04em] text-fg-faint;
+  }
+
+  .panel-title {
+    @apply text-[15px] font-semibold text-fg;
+  }
+
+  .tag {
+    @apply inline-flex items-center gap-1.5 whitespace-nowrap rounded border border-line bg-panel px-1.5 py-px font-mono text-[11px] font-medium uppercase tabular-nums tracking-[0.03em] text-fg-muted;
+  }
+
+  .dot {
+    @apply inline-block h-2 w-2 shrink-0 rounded-full;
+  }
+
+  .btn {
+    @apply inline-flex h-11 items-center justify-center gap-2 whitespace-nowrap rounded border px-4 text-[15px] font-medium no-underline transition-colors duration-150 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .btn-primary {
+    @apply btn border-accent bg-accent text-band hover:border-accent-hover hover:bg-accent-hover;
+  }
+
+  .btn-secondary {
+    @apply btn border-raised bg-raised text-fg hover:border-line hover:bg-line/60;
+  }
+
+  .btn-ghost {
+    @apply btn border-transparent bg-transparent text-fg-muted hover:bg-raised hover:text-fg;
+  }
+
+  .btn-icon {
+    @apply inline-flex h-11 w-11 items-center justify-center rounded border border-line text-fg-muted transition-colors duration-150 hover:bg-raised hover:text-fg;
+  }
+
+  /* CTA de destaque: rótulo em serifa, como no estilo Enterprise. */
+  .btn-lg {
+    @apply h-12 px-5 font-display text-[16px];
+  }
+
+  .input {
+    @apply h-11 w-full rounded border border-line bg-panel px-3 text-[16px] text-fg placeholder:text-fg-faint focus:border-accent focus:outline-none;
+  }
+
+  .data-table {
+    @apply w-full text-left text-[14px];
+  }
+
+  .data-table thead th {
+    @apply border-b border-line bg-band px-4 py-2.5 font-mono text-[12px] font-medium uppercase tracking-[0.04em] text-fg-faint;
+  }
+
+  .data-table tbody td {
+    @apply border-b border-line px-4 py-3 align-top;
+  }
+
+  .data-table tbody tr:last-child td {
+    @apply border-b-0;
+  }
+
+  .meter {
+    @apply h-1.5 overflow-hidden rounded-full bg-raised;
+  }
+
+  .num {
+    @apply font-mono tabular-nums;
+  }
+
+  /* ---- Página de apresentação ---- */
+  .frame {
+    @apply mx-auto max-w-[1200px] px-4 sm:px-8 lg:px-12;
+  }
+
+  .section {
+    @apply py-20 lg:py-28;
+  }
+
+  .eyebrow {
+    @apply text-[12px] font-semibold uppercase tracking-[0.14em] text-fg;
+  }
+
+  /* Títulos de exibição: entrelinha 1 e 32 px até o próximo elemento (fundamentos TypeUI). */
+  .display {
+    @apply font-display text-[40px] font-semibold leading-none tracking-[-0.01em] text-fg sm:text-[56px] lg:text-[64px];
+  }
+
+  .h-section {
+    @apply font-display text-[32px] font-semibold leading-none tracking-[-0.005em] text-fg sm:text-[40px];
+  }
+
+  .lede {
+    @apply text-[16px] leading-[1.6] text-fg-muted sm:text-[18px];
+  }
+
+  .link-arrow {
+    @apply inline-flex items-center gap-1 text-[15px] font-medium text-accent underline decoration-line-strong underline-offset-4 transition-colors duration-150 hover:decoration-accent;
+  }
+
+  .window-bar {
+    @apply flex h-10 items-center gap-3 border-b border-line bg-band px-3;
+  }
+
+  .hairline-grid {
+    @apply grid gap-px overflow-hidden rounded-lg border border-line bg-line;
+  }
+}
+
+@keyframes flow {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+
+.flow {
+  animation: flow 1.4s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flow {
+    animation: none;
+  }
+}
+
+/* ------------------------------------------------------------------------- */
+/* Laudo Executivo — exportação PDF via window.print(): tokens em tema claro */
+/* ------------------------------------------------------------------------- */
+
+@page {
+  size: A4;
+  margin: 14mm 12mm 16mm;
+}
+
+@media print {
+  :root {
+    color-scheme: light;
+    --canvas: 255 255 255;
+    --band: 247 246 241;
+    --panel: 255 255 255;
+    --raised: 240 238 230;
+  }
+
+  html,
+  body {
+    background: #ffffff !important;
+    font-size: 10pt;
+  }
+
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .print-break-before {
+    break-before: page;
+  }
+
+  /* Painéis grandes podem quebrar entre páginas; só blocos pequenos (linhas, itens, cabeçalhos) ficam inteiros. */
+  .break-inside-avoid,
+  .panel-header,
+  li {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .panel-header {
+    break-after: avoid;
+  }
+
+  thead {
+    display: table-header-group;
+  }
+
+  /* Tabelas largas cabem na largura A4: fonte e espaçamento compactos só na impressão. */
+  .data-table {
+    font-size: 8pt;
+  }
+
+  .data-table thead th,
+  .data-table tbody td {
+    padding: 4px 6px;
+  }
+
+  tr {
+    break-inside: avoid;
+  }
+
+  h2,
+  h3 {
+    break-after: avoid;
+  }
+
+  a {
+    color: inherit !important;
+    text-decoration: none !important;
+  }
+}

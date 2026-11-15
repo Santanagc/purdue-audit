@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+*.egg-info/
+
+# Node / Next.js
+node_modules/
+.next/
+out/
+dist/
+build/
+*.tsbuildinfo
+next-env.d.ts
+
+# Env
+.env
+.env.*
+!.env.example
+
+# Dados sensíveis / binários
+*.pcap
+*.pcapng
+!backend/tests/sample_ot_capture.pcap
+*.sqlite
+*.db
+
+# Graphify cache
+graphify-out/cache/
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Banco local de créditos
+backend/data/
+
+# Grafo de contexto local (graphify)
+graphify-out/

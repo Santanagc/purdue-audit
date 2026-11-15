@@ -1,0 +1,401 @@
+{
+ "audit_id": "50fe32fa-1ffd-4f74-8f0c-efb56127ff6d",
+ "generated_at": "2026-11-15T16:14:31.056018Z",
+ "source": "demo",
+ "file_name": "sample_ot_capture.pcap",
+ "ai_provider": "mock",
+ "processing_time_ms": 39,
+ "llm_payload_bytes": 3827,
+ "report": {
+  "overall_security_score": 17,
+  "risk_level": "CRÍTICO",
+  "executive_summary": "A análise passiva de 140 pacotes (13.1 s de captura) identificou 7 ativos, sendo 2 dispositivos de campo industriais (192.168.10.10, 192.168.10.20) e 2 mestres SCADA/HMI, além de 1 host externo na Internet, comunicando via ModbusTCP, OPCUA. O índice de segurança calculado é 17/100, classificando o ambiente com risco CRÍTICO: foram registradas 5 descobertas críticas, 4 altas e 0 médias.\n\nDo ponto de vista de continuidade operacional, os riscos prioritários são: comandos de escrita Modbus de origens não autorizadas, com potencial de alterar setpoints e provocar parada não programada; atividade de reconhecimento e varredura de registradores contra CLPs, típica da fase preparatória de um ataque; canal OPC UA sem assinatura nem criptografia (SecurityPolicy#None), sujeito a interceptação e adulteração; convergência TI/OT com protocolos corporativos e legados no segmento de controle, principal vetor de propagação de ransomware; exposição de ativos de controle a endereços públicos da Internet. Recomenda-se tratar primeiro as descobertas críticas com controles compensatórios que não exigem parada de planta — whitelisting de mestre único no firewall industrial, bloqueio de Function Codes de escrita/diagnóstico por origem e segmentação em zonas e conduítes conforme IEC 62443-3-2 — seguidos da migração para protocolos seguros (Modbus/TLS, OPC UA Basic256Sha256) na próxima janela de manutenção.",
+  "purdue_segmentation_analysis": "Nível 1 (controle básico): 192.168.10.10, 192.168.10.20. Nível 2 (supervisão): 192.168.10.5, 192.168.10.99. Hosts com perfil de TI/engenharia no mesmo domínio de broadcast: 192.168.10.50, 192.168.10.60. Endereços externos (Internet) em contato com a planta: 203.0.113.77. Foram identificadas 4 violações do isolamento de zonas: CLP Comunicando Diretamente com IP Público (Exposição Externa) (CRÍTICO); Protocolo Legado Inseguro (Telnet) no Segmento OT (CRÍTICO); Vetor de Movimentação Lateral de TI (SMB) na Rede de Controle (ALTO); Protocolo Legado Inseguro (SNMP v1/v2c) no Segmento OT (ALTO). Não há evidência de conduíte controlado (firewall/DMZ industrial) entre a zona de TI e a zona de controle — protocolos corporativos alcançam diretamente o segmento dos CLPs, contrariando os requisitos SR 5.1 (segmentação de rede) e SR 5.2 (proteção de fronteira de zona) da IEC 62443-3-3. Arquitetura-alvo recomendada: VLAN dedicada para Níveis 1/2, DMZ industrial (Nível 3.5) concentrando historiador, servidor de arquivos e jump server com MFA, e firewall industrial com DPI entre a supervisão e o campo permitindo somente os fluxos SCADA documentados.",
+  "vulnerabilities": [
+   {
+    "id": "OT-EXPOSURE-001",
+    "title": "CLP Comunicando Diretamente com IP Público (Exposição Externa)",
+    "severity": "CRÍTICO",
+    "iec_62443_reference": "IEC 62443-3-3 SR 5.1 / SR 5.2 / SR 1.13",
+    "technical_evidence": "Conversas entre ativos de campo e endereços fora da RFC 1918: CLP 192.168.10.10 <-> 203.0.113.77.",
+    "operational_impact": "O CLP conversa diretamente com IP público (192.168.10.10, 203.0.113.77): o dispositivo de campo está alcançável a partir da Internet, cenário explorado por varreduras automatizadas (Shodan) e por ataques de sabotagem remota.",
+    "remediation_steps": [
+     "Remover imediatamente regras NAT/port-forward que exponham a porta 502 ou outras portas de controle à Internet.",
+     "Investigar a origem pública e verificar se houve escrita ou alteração de lógica (comparar programa do CLP com backup íntegro).",
+     "Estabelecer acesso remoto somente via VPN com MFA terminando na DMZ industrial, nunca no Nível 1.",
+     "Aplicar regra de firewall de borda negando tráfego de/para redes OT a partir de IPs não-RFC1918."
+    ]
+   },
+   {
+    "id": "OT-MODBUS-001",
+    "title": "Comandos de Escrita Modbus TCP a partir de Múltiplos Mestres",
+    "severity": "CRÍTICO",
+    "iec_62443_reference": "IEC 62443-3-3 SR 1.1 / SR 2.1 / SR 3.1",
+    "technical_evidence": "O CLP 192.168.10.10 recebeu comandos de escrita de 2 origens distintas: 192.168.10.5 enviou 2 escritas [0x06 (Write Single Register)]; 192.168.10.99 enviou 2 escritas [0x06 (Write Single Register), 0x10 (Write Multiple Registers)]. Mestre primário inferido (maior volume de leituras): 192.168.10.5.",
+    "operational_impact": "Qualquer host com alcance de rede pode alterar setpoints e estados do CLP 192.168.10.10, 192.168.10.99. Um mestre não autorizado escrevendo em registradores de processo pode provocar manobras indevidas, disparo de intertravamentos, dano a equipamentos e parada não programada da planta.",
+    "remediation_steps": [
+     "Identificar fisicamente os hosts não mapeados (192.168.10.10, 192.168.10.99) via tabela CAM do switch gerenciado e isolar a porta enquanto a origem é investigada.",
+     "Configurar firewall industrial (DPI Modbus) na frente do CLP com whitelisting por IP/MAC permitindo somente o mestre SCADA oficial.",
+     "Aplicar regra DPI bloqueando Function Codes de escrita (0x05, 0x06, 0x0F, 0x10) para qualquer origem diferente do SCADA primário.",
+     "Habilitar no CLP a lista de IPs autorizados para Modbus (Access Control / IP filtering) suportada pelo firmware.",
+     "Registrar escritas Modbus em um IDS industrial passivo (ex: alertas por novo mestre) com retenção de logs no historiador."
+    ]
+   },
+   {
+    "id": "OT-MODBUS-003",
+    "title": "Reconhecimento / Enumeração Modbus via Function Codes de Diagnóstico",
+    "severity": "CRÍTICO",
+    "iec_62443_reference": "IEC 62443-3-3 SR 2.1 / SR 6.2 / SR 7.6",
+    "technical_evidence": "O CLP 192.168.10.10 recebeu requisições de diagnóstico/identificação de dispositivo: 192.168.10.99: 2 requisições [0x11 (Report Server ID), 0x2B (Read Device Identification (MEI))].",
+    "operational_impact": "Function Codes de diagnóstico/identificação (0x08, 0x11, 0x2B) revelam fabricante, modelo e firmware do CLP 192.168.10.10, 192.168.10.99, etapa clássica de reconhecimento que antecede exploração de vulnerabilidades. O FC 0x08 pode ainda forçar reinício de comunicação (Listen Only Mode), interrompendo a supervisão.",
+    "remediation_steps": [
+     "Bloquear no firewall industrial os FCs 0x08, 0x11 e 0x2B para todas as origens exceto a estação de engenharia autorizada.",
+     "Investigar a origem das requisições de enumeração e preservar evidências (logs do switch e do IDS).",
+     "Verificar boletins de segurança do fabricante para a versão de firmware exposta e planejar atualização na próxima parada.",
+     "Desabilitar no CLP serviços de diagnóstico remoto que não sejam necessários para a operação."
+    ]
+   },
+   {
+    "id": "OT-OPCUA-001",
+    "title": "Sessão OPC UA Negociada com SecurityPolicy#None",
+    "severity": "CRÍTICO",
+    "iec_62443_reference": "IEC 62443-3-3 SR 1.2 / SR 3.1 / SR 4.1",
+    "technical_evidence": "Canal(is) OpenSecureChannel sem assinatura nem criptografia: 192.168.10.5 -> 192.168.10.20:4840 (SecurityPolicy#None).",
+    "operational_impact": "Com SecurityPolicy#None, o canal OPC UA entre 192.168.10.20, 192.168.10.5 não é assinado nem criptografado: credenciais de sessão, valores de processo e chamadas de escrita podem ser interceptados e adulterados (man-in-the-middle).",
+    "remediation_steps": [
+     "Habilitar no servidor OPC UA o endpoint Basic256Sha256 (ou Aes128_Sha256_RsaOaep) com MessageSecurityMode SignAndEncrypt.",
+     "Emitir certificados X.509 por aplicação (PKI interna) e configurar trust list explícita no servidor e nos clientes.",
+     "Remover o endpoint SecurityPolicy#None da configuração do servidor após migrar todos os clientes.",
+     "Exigir autenticação de usuário (certificado ou usuário/senha) em vez de sessão anônima."
+    ]
+   },
+   {
+    "id": "OT-PURDUE-002",
+    "title": "Protocolo Legado Inseguro (Telnet) no Segmento OT",
+    "severity": "CRÍTICO",
+    "iec_62443_reference": "IEC 62443-3-3 SR 1.1 / SR 4.1 / SR 5.1",
+    "technical_evidence": "Protocolo em texto claro com credenciais expostas trafegando no segmento de controle. Fluxos no segmento de controle: 192.168.10.50 -> 192.168.10.10:23/tcp (11 pkts) [alvo é CLP].",
+    "operational_impact": "Protocolos legados em texto claro (Telnet/FTP/HTTP/SNMP v1-v2c) envolvendo 192.168.10.10, 192.168.10.50 expõem credenciais administrativas do equipamento de campo, permitindo alteração de configuração ou de firmware por qualquer host que capture o tráfego.",
+    "remediation_steps": [
+     "Desabilitar Telnet/FTP/HTTP nos CLPs e switches; utilizar SSH, SFTP e HTTPS onde o firmware suportar.",
+     "Migrar o monitoramento para SNMPv3 (authPriv) e trocar imediatamente communities/senhas expostas.",
+     "Restringir o acesso de manutenção a uma estação de engenharia dedicada via firewall de conduíte.",
+     "Rotacionar todas as credenciais observadas em texto claro na captura."
+    ]
+   },
+   {
+    "id": "OT-MODBUS-004",
+    "title": "Alta Taxa de Exceções Modbus (Possível Varredura de Registradores)",
+    "severity": "ALTO",
+    "iec_62443_reference": "IEC 62443-3-3 SR 3.1 / SR 6.2",
+    "technical_evidence": "6 de 10 respostas (60%) do CLP 192.168.10.10 para 192.168.10.99 foram exceções (0x83), padrão compatível com varredura de endereços de memória.",
+    "operational_impact": "A alta taxa de exceções (Illegal Data Address) caracteriza varredura de memória do CLP 192.168.10.10, 192.168.10.99. Além do mapeamento de registradores para ataques direcionados, a varredura consome ciclo de comunicação e pode degradar o tempo de scan da supervisão.",
+    "remediation_steps": [
+     "Isolar e investigar o host responsável pela varredura.",
+     "Ativar no IDS industrial regra de alerta por taxa de exceções Modbus acima do baseline.",
+     "Restringir o mapa de registradores acessíveis via firewall DPI (faixas de endereço permitidas por mestre).",
+     "Revisar a configuração do driver SCADA para eliminar leituras a endereços inexistentes."
+    ]
+   },
+   {
+    "id": "OT-MODBUS-005",
+    "title": "Modbus TCP em Texto Claro sem Autenticação",
+    "severity": "ALTO",
+    "iec_62443_reference": "IEC 62443-3-3 SR 1.2 / SR 3.1 / SR 4.1",
+    "technical_evidence": "38 requisições Modbus TCP na porta 502 sem criptografia nem autenticação (unencrypted_cleartext_protocol=True, lack_of_authentication=True). CLPs afetados: 192.168.10.10.",
+    "operational_impact": "O Modbus TCP não possui autenticação nem integridade de mensagem: comandos e valores de processo de 192.168.10.10 trafegam em texto claro, permitindo leitura, replay e injeção por qualquer host no segmento.",
+    "remediation_steps": [
+     "Segmentar o tráfego Modbus em VLAN de controle dedicada (Nível 1/2) com conduíte único até o SCADA.",
+     "Onde o hardware suportar, migrar para Modbus/TLS (porta 802) com certificados X.509 por dispositivo.",
+     "Para CLPs legados, instalar gateway/firewall industrial com VPN IPsec ou túnel TLS até o centro de controle.",
+     "Aplicar port security (MAC sticky) e desabilitar portas de switch não utilizadas no segmento de campo."
+    ]
+   },
+   {
+    "id": "OT-PURDUE-001",
+    "title": "Vetor de Movimentação Lateral de TI (SMB) na Rede de Controle",
+    "severity": "ALTO",
+    "iec_62443_reference": "IEC 62443-3-3 SR 5.1 / SR 5.2 (IEC 62443-3-2 Zonas e Conduítes)",
+    "technical_evidence": "Protocolo de TI corporativa trafegando no mesmo segmento dos CLPs (violação de zonas e conduítes IEC 62443-3-2). Fluxos no segmento de controle: 192.168.10.50 -> 192.168.10.60:445/tcp (8 pkts).",
+    "operational_impact": "Protocolos de TI (SMB/RDP/VNC) no segmento de controle entre 192.168.10.50, 192.168.10.60 são o principal vetor de propagação de ransomware para o chão de fábrica, podendo comprometer HMIs e estações de engenharia e parar a produção.",
+    "remediation_steps": [
+     "Criar VLAN dedicada para Nível 1/2 do Modelo Purdue e mover estações de TI/servidores de arquivos para a zona corporativa (Nível 4).",
+     "Implantar DMZ industrial (Nível 3.5) com servidor de transferência de arquivos intermediário, eliminando SMB direto até a rede de controle.",
+     "Configurar firewall entre zonas negando SMB (445), RDP (3389) e VNC (5900) por padrão; permitir acesso remoto apenas via jump server com MFA.",
+     "Aplicar hardening (desabilitar SMBv1, compartilhamentos administrativos) nas estações que permanecerem no segmento OT."
+    ]
+   },
+   {
+    "id": "OT-PURDUE-002-2",
+    "title": "Protocolo Legado Inseguro (SNMP v1/v2c) no Segmento OT",
+    "severity": "ALTO",
+    "iec_62443_reference": "IEC 62443-3-3 SR 1.1 / SR 4.1 / SR 5.1",
+    "technical_evidence": "Protocolo em texto claro com credenciais expostas trafegando no segmento de controle. Fluxos no segmento de controle: 192.168.10.50 -> 192.168.10.10:161/udp (1 pkts) [alvo é CLP].",
+    "operational_impact": "Protocolos legados em texto claro (Telnet/FTP/HTTP/SNMP v1-v2c) envolvendo 192.168.10.10, 192.168.10.50 expõem credenciais administrativas do equipamento de campo, permitindo alteração de configuração ou de firmware por qualquer host que capture o tráfego.",
+    "remediation_steps": [
+     "Desabilitar Telnet/FTP/HTTP nos CLPs e switches; utilizar SSH, SFTP e HTTPS onde o firmware suportar.",
+     "Migrar o monitoramento para SNMPv3 (authPriv) e trocar imediatamente communities/senhas expostas.",
+     "Restringir o acesso de manutenção a uma estação de engenharia dedicada via firewall de conduíte.",
+     "Rotacionar todas as credenciais observadas em texto claro na captura."
+    ]
+   }
+  ]
+ },
+ "network_summary": {
+  "capture_metadata": {
+   "total_packets": 140,
+   "duration_seconds": 13.106,
+   "protocols_detected": [
+    "ARP",
+    "ModbusTCP",
+    "OPCUA",
+    "SMB",
+    "SNMP",
+    "Telnet"
+   ],
+   "capture_start": "2024-11-14T16:00:00.020000Z",
+   "capture_end": "2024-11-14T16:00:13.125994Z",
+   "analysis_truncated": false
+  },
+  "assets": [
+   {
+    "ip": "192.168.10.10",
+    "mac": "00:80:F4:0A:12:34",
+    "inferred_role": "PLC / Field Slave",
+    "open_ports": [
+     23,
+     161,
+     502
+    ],
+    "packets_sent": 49,
+    "packets_received": 57,
+    "protocols": [
+     "ModbusTCP",
+     "SNMP",
+     "Telnet"
+    ]
+   },
+   {
+    "ip": "192.168.10.20",
+    "mac": "00:1B:1B:20:00:20",
+    "inferred_role": "PLC / Field Slave",
+    "open_ports": [
+     4840
+    ],
+    "packets_sent": 8,
+    "packets_received": 10,
+    "protocols": [
+     "OPCUA"
+    ]
+   },
+   {
+    "ip": "192.168.10.5",
+    "mac": "00:0C:29:AA:00:05",
+    "inferred_role": "HMI / SCADA Master",
+    "open_ports": [],
+    "packets_sent": 41,
+    "packets_received": 37,
+    "protocols": [
+     "ModbusTCP",
+     "OPCUA"
+    ]
+   },
+   {
+    "ip": "192.168.10.99",
+    "mac": "00:0C:29:DE:AD:99",
+    "inferred_role": "HMI / SCADA Master",
+    "open_ports": [],
+    "packets_sent": 14,
+    "packets_received": 12,
+    "protocols": [
+     "ModbusTCP"
+    ]
+   },
+   {
+    "ip": "192.168.10.50",
+    "mac": "00:0C:29:EE:00:50",
+    "inferred_role": "Engineering Workstation / IT Host",
+    "open_ports": [],
+    "packets_sent": 12,
+    "packets_received": 8,
+    "protocols": [
+     "SMB",
+     "SNMP",
+     "Telnet"
+    ]
+   },
+   {
+    "ip": "192.168.10.60",
+    "mac": "00:0C:29:FF:00:60",
+    "inferred_role": "Engineering Workstation / IT Host",
+    "open_ports": [
+     445
+    ],
+    "packets_sent": 3,
+    "packets_received": 5,
+    "protocols": [
+     "SMB"
+    ]
+   },
+   {
+    "ip": "203.0.113.77",
+    "mac": null,
+    "inferred_role": "External Host",
+    "open_ports": [],
+    "packets_sent": 5,
+    "packets_received": 3,
+    "protocols": [
+     "ModbusTCP"
+    ]
+   }
+  ],
+  "deterministic_findings": [
+   {
+    "rule_id": "OT-EXPOSURE-001",
+    "severity": "CRITICAL",
+    "category": "EXPOSURE",
+    "title": "CLP Comunicando Diretamente com IP Público (Exposição Externa)",
+    "evidence": "Conversas entre ativos de campo e endereços fora da RFC 1918: CLP 192.168.10.10 <-> 203.0.113.77.",
+    "affected_assets": [
+     "192.168.10.10",
+     "203.0.113.77"
+    ]
+   },
+   {
+    "rule_id": "OT-MODBUS-001",
+    "severity": "CRITICAL",
+    "category": "MODBUS",
+    "title": "Comandos de Escrita Modbus TCP a partir de Múltiplos Mestres",
+    "evidence": "O CLP 192.168.10.10 recebeu comandos de escrita de 2 origens distintas: 192.168.10.5 enviou 2 escritas [0x06 (Write Single Register)]; 192.168.10.99 enviou 2 escritas [0x06 (Write Single Register), 0x10 (Write Multiple Registers)]. Mestre primário inferido (maior volume de leituras): 192.168.10.5.",
+    "affected_assets": [
+     "192.168.10.10",
+     "192.168.10.99"
+    ]
+   },
+   {
+    "rule_id": "OT-MODBUS-003",
+    "severity": "CRITICAL",
+    "category": "MODBUS",
+    "title": "Reconhecimento / Enumeração Modbus via Function Codes de Diagnóstico",
+    "evidence": "O CLP 192.168.10.10 recebeu requisições de diagnóstico/identificação de dispositivo: 192.168.10.99: 2 requisições [0x11 (Report Server ID), 0x2B (Read Device Identification (MEI))].",
+    "affected_assets": [
+     "192.168.10.10",
+     "192.168.10.99"
+    ]
+   },
+   {
+    "rule_id": "OT-OPCUA-001",
+    "severity": "CRITICAL",
+    "category": "OPCUA",
+    "title": "Sessão OPC UA Negociada com SecurityPolicy#None",
+    "evidence": "Canal(is) OpenSecureChannel sem assinatura nem criptografia: 192.168.10.5 -> 192.168.10.20:4840 (SecurityPolicy#None).",
+    "affected_assets": [
+     "192.168.10.20",
+     "192.168.10.5"
+    ]
+   },
+   {
+    "rule_id": "OT-PURDUE-002",
+    "severity": "CRITICAL",
+    "category": "PURDUE",
+    "title": "Protocolo Legado Inseguro (Telnet) no Segmento OT",
+    "evidence": "Protocolo em texto claro com credenciais expostas trafegando no segmento de controle. Fluxos no segmento de controle: 192.168.10.50 -> 192.168.10.10:23/tcp (11 pkts) [alvo é CLP].",
+    "affected_assets": [
+     "192.168.10.10",
+     "192.168.10.50"
+    ]
+   },
+   {
+    "rule_id": "OT-MODBUS-004",
+    "severity": "HIGH",
+    "category": "MODBUS",
+    "title": "Alta Taxa de Exceções Modbus (Possível Varredura de Registradores)",
+    "evidence": "6 de 10 respostas (60%) do CLP 192.168.10.10 para 192.168.10.99 foram exceções (0x83), padrão compatível com varredura de endereços de memória.",
+    "affected_assets": [
+     "192.168.10.10",
+     "192.168.10.99"
+    ]
+   },
+   {
+    "rule_id": "OT-MODBUS-005",
+    "severity": "HIGH",
+    "category": "MODBUS",
+    "title": "Modbus TCP em Texto Claro sem Autenticação",
+    "evidence": "38 requisições Modbus TCP na porta 502 sem criptografia nem autenticação (unencrypted_cleartext_protocol=True, lack_of_authentication=True). CLPs afetados: 192.168.10.10.",
+    "affected_assets": [
+     "192.168.10.10"
+    ]
+   },
+   {
+    "rule_id": "OT-PURDUE-001",
+    "severity": "HIGH",
+    "category": "PURDUE",
+    "title": "Vetor de Movimentação Lateral de TI (SMB) na Rede de Controle",
+    "evidence": "Protocolo de TI corporativa trafegando no mesmo segmento dos CLPs (violação de zonas e conduítes IEC 62443-3-2). Fluxos no segmento de controle: 192.168.10.50 -> 192.168.10.60:445/tcp (8 pkts).",
+    "affected_assets": [
+     "192.168.10.50",
+     "192.168.10.60"
+    ]
+   },
+   {
+    "rule_id": "OT-PURDUE-002",
+    "severity": "HIGH",
+    "category": "PURDUE",
+    "title": "Protocolo Legado Inseguro (SNMP v1/v2c) no Segmento OT",
+    "evidence": "Protocolo em texto claro com credenciais expostas trafegando no segmento de controle. Fluxos no segmento de controle: 192.168.10.50 -> 192.168.10.10:161/udp (1 pkts) [alvo é CLP].",
+    "affected_assets": [
+     "192.168.10.10",
+     "192.168.10.50"
+    ]
+   }
+  ],
+  "modbus_analysis": {
+   "total_requests": 38,
+   "total_responses": 38,
+   "exception_responses": 6,
+   "function_code_histogram": {
+    "0x01": 5,
+    "0x03": 27,
+    "0x06": 3,
+    "0x10": 1,
+    "0x11": 1,
+    "0x2B": 1,
+    "0x83": 6
+   },
+   "slaves": [
+    {
+     "slave_ip": "192.168.10.10",
+     "masters": [
+      "192.168.10.5",
+      "192.168.10.99",
+      "203.0.113.77"
+     ],
+     "writers": [
+      "192.168.10.5",
+      "192.168.10.99"
+     ],
+     "primary_master": "192.168.10.5",
+     "read_requests": 32,
+     "write_requests": 4,
+     "diagnostic_requests": 2,
+     "exception_responses": 6
+    }
+   ]
+  },
+  "opcua_channels": [
+   {
+    "client_ip": "192.168.10.5",
+    "server_ip": "192.168.10.20",
+    "server_port": 4840,
+    "security_policy": "None",
+    "policy_risk": "CRITICAL"
+   }
+  ],
+  "security_flags": {
+   "unencrypted_cleartext_protocol": true,
+   "lack_of_authentication": true,
+   "it_ot_convergence_detected": true,
+   "external_exposure_detected": true
+  }
+ }
+}

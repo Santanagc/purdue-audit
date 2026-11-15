@@ -1,0 +1,30 @@
+# Dependências e Locks (Devoradores de Tokens)
+node_modules/
+**/node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+.venv/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Builds e Caches
+.next/
+out/
+dist/
+build/
+
+# Binários, Capturas de Rede e Bancos Locais (NUNCA ler como texto)
+*.pcap
+*.pcapng
+*.sqlite
+*.db
+*.pdf
+
+# Variáveis de Ambiente e Git
+.env
+.env.*
+!.env.example
+.git/graphify-out/cache/
