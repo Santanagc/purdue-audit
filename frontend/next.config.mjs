@@ -10,7 +10,8 @@ function origin(value) {
   }
 }
 
-const apiOrigin = origin(process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000");
+// Sem NEXT_PUBLIC_API_URL em produção, o frontend não chama API nenhuma (modo somente demonstração).
+const apiOrigin = origin(process.env.NEXT_PUBLIC_API_URL ?? (isProd ? "" : "http://localhost:8000"));
 const connectSrc = ["'self'", apiOrigin].filter(Boolean).join(" ");
 
 const contentSecurityPolicy = [

@@ -4,7 +4,7 @@ import { FileText, Lock, Play, TriangleAlert, Upload, X } from "lucide-react";
 import { useCallback, useId, useRef, useState, type DragEvent, type KeyboardEvent } from "react";
 
 import { PanelHeader } from "@/components/ui";
-import { ACCEPTED_EXTENSIONS, validateCaptureFile } from "@/lib/api";
+import { ACCEPTED_EXTENSIONS, API_ENABLED, validateCaptureFile } from "@/lib/api";
 import { formatBytes } from "@/lib/format";
 
 interface UploadPanelProps {
@@ -110,7 +110,14 @@ export function UploadPanel({ disabled, backendOnline, maxUploadMb, error, onDem
           </div>
         )}
 
-        {!backendOnline && !shownError && (
+        {!API_ENABLED && !shownError && (
+          <p className="mt-3 flex items-start gap-2 text-[12px] leading-relaxed text-fg-faint">
+            <span className="dot mt-1 bg-status-info" aria-hidden />
+            Esta publicação não tem servidor de análise: o envio de capturas próprias funciona ao rodar o projeto localmente
+            ou com o backend publicado. A demo funciona normalmente.
+          </p>
+        )}
+        {API_ENABLED && !backendOnline && !shownError && (
           <p className="mt-3 flex items-start gap-2 text-[12px] leading-relaxed text-fg-faint">
             <span className="dot mt-1 bg-status-medium" aria-hidden />O servidor de análise roda em hospedagem gratuita
             e pode estar hibernando: o primeiro upload pode levar cerca de 1 minuto. A demo funciona imediatamente.

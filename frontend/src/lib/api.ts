@@ -1,6 +1,15 @@
 import type { AuditResponse, HealthResponse } from "@/lib/types";
 
-export const API_URL: string = (process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000").replace(/\/+$/, "");
+/**
+ * Em produção sem NEXT_PUBLIC_API_URL (publicação só da vitrine), nenhuma requisição sai do navegador:
+ * evita que o site chame http://localhost:8000 na máquina do visitante. Em desenvolvimento, usa a API local.
+ */
+export const API_URL: string = (
+  process.env.NEXT_PUBLIC_API_URL ?? (process.env.NODE_ENV === "production" ? "" : "http://localhost:8000")
+).replace(/\/+$/, "");
+
+/** Há servidor de análise configurado? Se não, a ferramenta funciona só com o laudo de demonstração embutido. */
+export const API_ENABLED: boolean = API_URL !== "";
 
 export const DEFAULT_MAX_UPLOAD_MB = 10;
 export const ACCEPTED_EXTENSIONS: readonly string[] = [".pcap", ".pcapng", ".cap"];
@@ -36,6 +45,12 @@ async function extractDetail(response: Response): Promise<string> {
 }
 
 async function request<T>(path: string, init: RequestInit): Promise<T> {
+  if (!API_ENABLED) {
+    throw new ApiError(
+      "Esta publicação mostra apenas o laudo de demonstração: o servidor de análise não está configurado.",
+      0,
+    );
+  }
   let response: Response;
   try {
     response = await fetch(`${API_URL}${path}`, { ...init, credentials: "omit", cache: "no-store" });

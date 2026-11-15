@@ -1,3 +1,4 @@
+import { API_ENABLED } from "@/lib/api";
 import type { HealthResponse } from "@/lib/types";
 
 const ENGINE_LABELS: Record<HealthResponse["ai_provider"], string> = {
@@ -21,8 +22,14 @@ function Item({ label, value }: { label: string; value: string }) {
 }
 
 export function StatusBar({ health, healthError }: StatusBarProps) {
-  const state = healthError ? "hibernando · demo com laudo pré-gerado" : health ? "online" : "verificando";
-  const dot = healthError ? "bg-status-medium" : health ? "bg-status-low" : "bg-fg-faint";
+  const state = !API_ENABLED
+    ? "não configurada · somente demonstração"
+    : healthError
+      ? "hibernando · demo com laudo pré-gerado"
+      : health
+        ? "online"
+        : "verificando";
+  const dot = !API_ENABLED ? "bg-status-info" : healthError ? "bg-status-medium" : health ? "bg-status-low" : "bg-fg-faint";
 
   return (
     <footer className="no-print sticky bottom-0 z-30 border-t border-line bg-panel">

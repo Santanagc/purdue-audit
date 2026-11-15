@@ -7,7 +7,7 @@ import { Dashboard } from "@/components/dashboard/Dashboard";
 import { Landing } from "@/components/Landing";
 import { SiteHeader } from "@/components/SiteHeader";
 import { StatusBar } from "@/components/StatusBar";
-import { ApiError, DEFAULT_MAX_UPLOAD_MB, getHealth, loadDemoSnapshot, runDemoAudit, uploadAudit } from "@/lib/api";
+import { API_ENABLED, ApiError, DEFAULT_MAX_UPLOAD_MB, getHealth, loadDemoSnapshot, runDemoAudit, uploadAudit } from "@/lib/api";
 import type { AuditResponse, HealthResponse } from "@/lib/types";
 import type { AuditMode, ViewState } from "@/lib/view";
 
@@ -46,6 +46,7 @@ export default function HomePage() {
   }, []);
 
   useEffect(() => {
+    if (!API_ENABLED) return; // modo somente demonstração: não consulta a API
     const controller = new AbortController();
     getHealth(controller.signal)
       .then((value) => {
